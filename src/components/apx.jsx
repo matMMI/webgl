@@ -1,11 +1,8 @@
 "use client";
-import Image from "next/image";
-import styles from "../app/page.module.css";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { Suspense, useRef, useEffect, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-import marine from "../../public/marine.png";
 const Model = ({ url, color }) => {
   const model = useLoader(STLLoader, url);
   const mesh = useRef();
@@ -92,12 +89,7 @@ const Page = () => {
           </button>
         ))}
       </div>
-      <Image
-        src={marine}
-        className={styles.image}
-        width={60}
-        alt="Picture of the author"
-      />
+
       <Scene modelUrl={modelUrl} color={color} />
     </div>
   );
