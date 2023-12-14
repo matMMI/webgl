@@ -1,0 +1,37 @@
+# Fichiers de configuration
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dossiers Next.js
+.next/
+out/
+
+# Fichiers de dépendances
+node_modules/
+
+# Fichiers de build
+.vercel/
+dist/
+
+# Fichiers et dossiers de cache
+.cache/
+.DS_Store
+*.pnp
+pnp.js
+
+# Dossiers de tests
+coverage/
+.nyc_output/
+
+# Fichiers de journalisation
+*.log
+npm-debug.log*
+
+# Fichiers de l'éditeur
+.idea/
+*.swp
+*.swo
+*~
