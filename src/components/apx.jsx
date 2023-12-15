@@ -7,7 +7,6 @@ const Model = ({ url, color }) => {
   const model = useLoader(STLLoader, url);
   const mesh = useRef();
   const lightRef = useRef();
-
   useEffect(() => {
     if (mesh.current) {
       mesh.current.add(lightRef.current);
@@ -16,7 +15,6 @@ const Model = ({ url, color }) => {
       geometry.boundingBox.getCenter(mesh.current.position).multiplyScalar(-1);
     }
   }, [model]);
-
   return (
     <mesh ref={mesh}>
       <primitive object={model} />
@@ -38,10 +36,10 @@ const Scene = ({ modelUrl, color }) => {
     </Canvas>
   );
 };
-
 const Page = () => {
   const [color, setColor] = useState("gray");
   const [modelUrl, setModelUrl] = useState("/mermer40.stl");
+  const [selectedModel, setSelectedModel] = useState("mermer40");
   const models = {
     mermer40: "/mermer40.stl",
     aster: "/Aster.stl",
@@ -56,8 +54,8 @@ const Page = () => {
   };
   const buttonContainerStyle = {
     position: "absolute",
-    top: 20,
-    left: 20,
+    top: 10,
+    left: 10,
     zIndex: 10,
     padding: "10px",
     backdropFilter: "blur(10px)",
@@ -71,11 +69,16 @@ const Page = () => {
     textTransform: "uppercase",
     padding: "10px 15px",
     color: "#ffffff",
-    border: "none",
+    border: "2px solid transparent",
     borderRadius: "8px",
     cursor: "pointer",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    transition: "transform 0.1s",
+    transition: "border 0.3s ease, padding 0.3s ease, transform 0.3s ease",
+    boxSizing: "border-box",
+  };
+  const activeButtonStyle = {
+    ...buttonStyle,
+    border: "2px solid #0CFF99",
   };
   return (
     <div style={{ height: "100vh", width: "100vw" }}>
@@ -83,14 +86,16 @@ const Page = () => {
         {Object.entries(models).map(([key, path]) => (
           <button
             key={key}
-            style={buttonStyle}
-            onClick={() => setModelUrl(path)}
+            style={selectedModel === key ? activeButtonStyle : buttonStyle}
+            onClick={() => {
+              setModelUrl(path);
+              setSelectedModel(key);
+            }}
           >
             {modelNames[key]}
           </button>
         ))}
       </div>
-
       <Scene modelUrl={modelUrl} color={color} />
     </div>
   );
