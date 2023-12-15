@@ -66,6 +66,7 @@ const Page = () => {
     backdropFilter: "blur(10px)",
     backgroundColor: "#000000",
     border: "2px solid #1D1D1D",
+
     borderRadius: "7px",
     display: "flex",
     flexDirection: "column",
