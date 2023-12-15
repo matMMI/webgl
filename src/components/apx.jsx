@@ -32,7 +32,7 @@ const Scene = ({ modelUrl, color }) => {
       <Suspense fallback={null}>
         <Model url={modelUrl} color={color} />
       </Suspense>
-      <OrbitControls />
+      <OrbitControls minDistance={10} maxDistance={40} />
     </Canvas>
   );
 };
@@ -54,13 +54,13 @@ const Page = () => {
   };
   const buttonContainerStyle = {
     position: "absolute",
-    top: 10,
-    left: 10,
+    top: 15,
+    left: 15,
     zIndex: 10,
     padding: "10px",
     backdropFilter: "blur(10px)",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    borderRadius: "12px",
+    backgroundColor: "#333333",
+    borderRadius: "7px",
     display: "flex",
     flexDirection: "column",
     gap: "10px",
@@ -69,6 +69,7 @@ const Page = () => {
     textTransform: "uppercase",
     padding: "10px 15px",
     color: "#ffffff",
+    backgroundColor: "#121212",
     border: "2px solid transparent",
     borderRadius: "8px",
     cursor: "pointer",
