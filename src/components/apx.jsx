@@ -32,7 +32,12 @@ const Scene = ({ modelUrl, color }) => {
       <Suspense fallback={null}>
         <Model url={modelUrl} color={color} />
       </Suspense>
-      <OrbitControls minDistance={10} maxDistance={40} />
+      <OrbitControls
+        minDistance={10}
+        maxDistance={40}
+        minPolarAngle={0} // Increase this to allow full vertical rotation
+        maxPolarAngle={Math.PI * 2}
+      />
     </Canvas>
   );
 };
@@ -59,7 +64,8 @@ const Page = () => {
     zIndex: 10,
     padding: "10px",
     backdropFilter: "blur(10px)",
-    backgroundColor: "#333333",
+    backgroundColor: "#000000",
+    border: "2px solid #1D1D1D",
     borderRadius: "7px",
     display: "flex",
     flexDirection: "column",
