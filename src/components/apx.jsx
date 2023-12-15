@@ -70,6 +70,7 @@ const Page = () => {
   const buttonStyle = {
     textTransform: "uppercase",
     padding: "10px 15px",
+    color: "#ffffff",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
