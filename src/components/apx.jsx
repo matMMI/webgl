@@ -1,5 +1,5 @@
 "use client";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { Suspense, useRef, useEffect, useState } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
@@ -7,14 +7,28 @@ const Model = ({ url, color }) => {
   const model = useLoader(STLLoader, url);
   const mesh = useRef();
   const lightRef = useRef();
+
   useEffect(() => {
     if (mesh.current) {
       mesh.current.add(lightRef.current);
       const geometry = mesh.current.geometry;
       geometry.computeBoundingBox();
       geometry.boundingBox.getCenter(mesh.current.position).multiplyScalar(-1);
+
+      // Agrandir le modèle si c'est "Aster.stl"
+      if (url.endsWith("/Aster.stl")) {
+        mesh.current.scale.set(3, 3, 3); // Ajustez les valeurs d'échelle selon vos besoins
+      } else {
+        mesh.current.scale.set(1, 1, 1); // Echelle normale pour les autres modèles
+      }
     }
-  }, [model]);
+  }, [model, url]);
+  useFrame((state, delta) => {
+    if (mesh.current) {
+      mesh.current.rotation.y += delta * 0.5;
+    }
+  });
+
   return (
     <mesh ref={mesh}>
       <primitive object={model} />
