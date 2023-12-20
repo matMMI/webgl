@@ -7,19 +7,16 @@ const Model = ({ url, color }) => {
   const model = useLoader(STLLoader, url);
   const mesh = useRef();
   const lightRef = useRef();
-
   useEffect(() => {
     if (mesh.current) {
       mesh.current.add(lightRef.current);
       const geometry = mesh.current.geometry;
       geometry.computeBoundingBox();
       geometry.boundingBox.getCenter(mesh.current.position).multiplyScalar(-1);
-
-      // Agrandir le modèle si c'est "Aster.stl"
       if (url.endsWith("/Aster.stl")) {
-        mesh.current.scale.set(3, 3, 3); // Ajustez les valeurs d'échelle selon vos besoins
+        mesh.current.scale.set(3, 3, 3);
       } else {
-        mesh.current.scale.set(1, 1, 1); // Echelle normale pour les autres modèles
+        mesh.current.scale.set(1, 1, 1);
       }
     }
   }, [model, url]);
@@ -28,7 +25,6 @@ const Model = ({ url, color }) => {
       mesh.current.rotation.y += delta * 0.5;
     }
   });
-
   return (
     <mesh ref={mesh}>
       <primitive object={model} />
@@ -37,7 +33,6 @@ const Model = ({ url, color }) => {
     </mesh>
   );
 };
-
 const Scene = ({ modelUrl, color }) => {
   return (
     <Canvas camera={{ position: [0, 0, 20], fov: 75 }}>
